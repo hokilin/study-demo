@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
  * @author linhuankai
  * @date 2020/12/11 14:35
  */
-@Target(ElementType.TYPE)
+@Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface DynamicField {
 }

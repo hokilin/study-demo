@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/dyna")
-@DynamicField
 public class DynamicFieldController {
     @PostMapping("/addMember")
+    @DynamicField
     public void addMember(@RequestBody MemberParam param) {
         System.out.println("接收到的请求体==============：" + param);
     }
