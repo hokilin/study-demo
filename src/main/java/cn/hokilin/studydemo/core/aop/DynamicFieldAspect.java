@@ -46,6 +46,7 @@ public class DynamicFieldAspect {
         for (Object arg : args) {
             // 处理有@DynamicField注解的参数
             if (arg.getClass().isAnnotationPresent(DynamicField.class)) {
+                log.info("AOP before 获取的参数：" + arg);
                 // 将参数转换为jackson的JsonNode
                 JsonNode jsonNode = JacksonUtils.valueToTree(arg);
                 for (Map.Entry<String, String> entry : fieldRelationMap.entrySet()) {
@@ -59,6 +60,7 @@ public class DynamicFieldAspect {
                         throw new RuntimeException("参数" + key + "必传");
                     }
                 }
+                log.info("AOP before 处理后的参数：" + arg);
             }
         }
     }

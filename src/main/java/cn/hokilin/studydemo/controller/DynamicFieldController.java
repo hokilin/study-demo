@@ -22,8 +22,6 @@ public class DynamicFieldController {
     @PostMapping("/addMember")
     @DynamicField
     public ResponseData addMember(@RequestBody MemberParam param) {
-        log.info("接收到的请求体：" + param);
-
         MemberDTO dto = new MemberDTO();
         BeanUtils.copyProperties(param, dto);
         return ResponseData.success(dto);
