@@ -7,6 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,7 +30,14 @@ public class DynamicFieldUtils {
     public static <T> T handleDynaFieldParam(T param, Map<String, String> configs) {
         // 将参数转换为jackson的JsonNode
         JsonNode jsonNode = JacksonUtils.valueToTree(param);
-        Field[] fields = param.getClass().getDeclaredFields();
+        List<Field> fields = new ArrayList<>();
+        Class tempClass = param.getClass();
+        //当父类为null的时候说明到达了最上层的父类(Object类)
+        while (tempClass != null) {
+            fields.addAll(Arrays.asList(tempClass.getDeclaredFields()));
+            //得到父类,然后赋给自己
+            tempClass = tempClass.getSuperclass();
+        }
         for (Field field : fields) {
             // 处理有@DynamicField注解的字段
             boolean annotationPresent = field.isAnnotationPresent(DynamicField.class);

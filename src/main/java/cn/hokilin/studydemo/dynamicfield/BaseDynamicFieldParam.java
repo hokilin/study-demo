@@ -20,7 +20,9 @@ public class BaseDynamicFieldParam {
 
     @DynamicField
     private String extend1;
+    @DynamicField
     private String extend2;
+    @DynamicField
     private String extend3;
 
     private Map<String, Object> extend = new HashMap<>();
