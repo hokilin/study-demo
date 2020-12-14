@@ -18,6 +18,7 @@ import java.util.Map;
 @ToString
 public class BaseDynamicFieldParam {
 
+    @DynamicField
     private String extend1;
     private String extend2;
     private String extend3;
