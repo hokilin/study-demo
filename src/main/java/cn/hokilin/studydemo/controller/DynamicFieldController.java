@@ -41,6 +41,9 @@ public class DynamicFieldController {
         log.info("工具类处理后的参数：" + param);
         MemberDTO dto = new MemberDTO();
         BeanUtils.copyProperties(param, dto);
-        return ResponseData.success(dto);
+        log.info("DTO处理前：" + dto);
+        Object result = DynamicFieldUtils.handleDynaFieldDto(dto, fieldRelationMap);
+        log.info("DTO处理后：" + result);
+        return ResponseData.success(result);
     }
 }

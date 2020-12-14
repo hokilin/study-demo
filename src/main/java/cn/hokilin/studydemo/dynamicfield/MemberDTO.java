@@ -12,7 +12,10 @@ public class MemberDTO {
     private String name;
     private Integer age;
 
+    @DynamicField
     private String extend1;
+    @DynamicField
     private String extend2;
+    @DynamicField
     private String extend3;
 }
