@@ -23,13 +23,18 @@ import java.util.Map;
  */
 @Slf4j
 public class JacksonUtils {
-    private final static ObjectMapper objectMapper;
+    private final static ObjectMapper OBJECT_MAPPER;
 
     private JacksonUtils() {
     }
 
     static {
-        ObjectMapper mapper = SpringUtils.getBean(ObjectMapper.class);
+        ObjectMapper mapper = null;
+        try {
+            mapper = SpringUtils.getBean(ObjectMapper.class);
+        } catch (Exception e) {
+            log.info("从spring容器中获取ObjectMapper实例失败");
+        }
         if (mapper == null) {
             synchronized (JacksonUtils.class) {
                 if (mapper == null) {
@@ -45,7 +50,7 @@ public class JacksonUtils {
                 }
             }
         }
-        objectMapper = mapper;
+        OBJECT_MAPPER = mapper;
     }
 
     public static <T> String obj2String(T src) {
@@ -53,7 +58,7 @@ public class JacksonUtils {
             return null;
         }
         try {
-            return src instanceof String ? (String) src : objectMapper.writeValueAsString(src);
+            return src instanceof String ? (String) src : OBJECT_MAPPER.writeValueAsString(src);
         } catch (Exception e) {
             log.error("Parse Object to String error src=" + src, e);
             return null;
@@ -65,7 +70,7 @@ public class JacksonUtils {
             return null;
         }
         try {
-            return src instanceof byte[] ? (byte[]) src : objectMapper.writeValueAsBytes(src);
+            return src instanceof byte[] ? (byte[]) src : OBJECT_MAPPER.writeValueAsBytes(src);
         } catch (Exception e) {
             log.error("Parse Object to byte[] error", e);
             return null;
@@ -78,7 +83,7 @@ public class JacksonUtils {
         }
         str = escapesSpecialChar(str);
         try {
-            return clazz.equals(String.class) ? (T) str : objectMapper.readValue(str, clazz);
+            return clazz.equals(String.class) ? (T) str : OBJECT_MAPPER.readValue(str, clazz);
         } catch (Exception e) {
             log.error("Parse String to Object error\nString: {}\nClass<T>: {}\nError: {}", str, clazz.getName(), e);
             return null;
@@ -90,7 +95,7 @@ public class JacksonUtils {
             return null;
         }
         try {
-            return objectMapper.readValue(str, objectMapper.getTypeFactory().constructParametricType(List.class, clazz));
+            return OBJECT_MAPPER.readValue(str, OBJECT_MAPPER.getTypeFactory().constructParametricType(List.class, clazz));
         } catch (Exception e) {
             log.error("Parse String to Object List error\nString: {}\nClass<T>: {}\nError: {}", str, clazz.getName(), e);
             return null;
@@ -102,7 +107,7 @@ public class JacksonUtils {
             return null;
         }
         try {
-            return clazz.equals(byte[].class) ? (T) bytes : objectMapper.readValue(bytes, clazz);
+            return clazz.equals(byte[].class) ? (T) bytes : OBJECT_MAPPER.readValue(bytes, clazz);
         } catch (Exception e) {
             log.error("Parse byte[] to Object error\nbyte[]: {}\nClass<T>: {}\nError: {}", bytes, clazz.getName(), e);
             return null;
@@ -115,7 +120,7 @@ public class JacksonUtils {
         }
         str = escapesSpecialChar(str);
         try {
-            return (T) (typeReference.getType().equals(String.class) ? str : objectMapper.readValue(str, typeReference));
+            return (T) (typeReference.getType().equals(String.class) ? str : OBJECT_MAPPER.readValue(str, typeReference));
         } catch (Exception e) {
             log.error("Parse String to Object error\nString: {}\nTypeReference<T>: {}\nError: {}", str,
                     typeReference.getType(), e);
@@ -128,7 +133,7 @@ public class JacksonUtils {
             return null;
         }
         try {
-            return (T) (typeReference.getType().equals(byte[].class) ? bytes : objectMapper.readValue(bytes, typeReference));
+            return (T) (typeReference.getType().equals(byte[].class) ? bytes : OBJECT_MAPPER.readValue(bytes, typeReference));
         } catch (Exception e) {
             log.error("Parse byte[] to Object error\nbyte[]: {}\nTypeReference<T>: {}\nError: {}", bytes,
                     typeReference.getType(), e);
@@ -146,16 +151,16 @@ public class JacksonUtils {
     }
 
     public static JsonNode valueToTree(Object object) {
-        return objectMapper.valueToTree(object);
+        return OBJECT_MAPPER.valueToTree(object);
     }
 
     public static ObjectNode valueToObjectNode(Object object) {
-        return objectMapper.valueToTree(object);
+        return OBJECT_MAPPER.valueToTree(object);
     }
 
     public static <T> T treeToValue(TreeNode treeNode, Class<T> valueType) {
         try {
-            return objectMapper.treeToValue(treeNode, valueType);
+            return OBJECT_MAPPER.treeToValue(treeNode, valueType);
         } catch (JsonProcessingException e) {
             log.error("Parse treeNode to Object error\ntreeNode: {}\nTypeReference<T>: {}\nError: {}", treeNode,
                     valueType, e);
