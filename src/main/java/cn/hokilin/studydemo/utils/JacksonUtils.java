@@ -23,7 +23,7 @@ import java.util.Map;
  */
 @Slf4j
 public class JacksonUtils {
-    private volatile static ObjectMapper OBJECT_MAPPER;
+    private final static ObjectMapper OBJECT_MAPPER;
 
     private JacksonUtils() {
     }
@@ -36,19 +36,15 @@ public class JacksonUtils {
             log.info("从spring容器中获取ObjectMapper实例失败");
         }
         if (mapper == null) {
-            synchronized (JacksonUtils.class) {
-                if (mapper == null) {
-                    mapper = new ObjectMapper();
-                    // 忽略多余字段
-                    mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-                    // 空数组反序列化
-                    mapper.configure(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true);
-                    mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+            mapper = new ObjectMapper();
+            // 忽略多余字段
+            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            // 空数组反序列化
+            mapper.configure(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true);
+            mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 
-                    // 时间反序列化
-                    mapper.registerModule(new JavaTimeModule().addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
-                }
-            }
+            // 时间反序列化
+            mapper.registerModule(new JavaTimeModule().addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))));
         }
         OBJECT_MAPPER = mapper;
     }
