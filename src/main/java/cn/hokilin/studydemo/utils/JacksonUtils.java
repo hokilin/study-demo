@@ -23,7 +23,7 @@ import java.util.Map;
  */
 @Slf4j
 public class JacksonUtils {
-    private final static ObjectMapper OBJECT_MAPPER;
+    private volatile static ObjectMapper OBJECT_MAPPER;
 
     private JacksonUtils() {
     }
