@@ -1,14 +1,16 @@
 package cn.hokilin.studydemo.bitmap;
 
+import java.util.BitSet;
+
 /**
  * @author linhuankai
  * @date 2020/11/3 16:04
  */
-public class MyBitMap {
+public class MyBitMapOfByte {
 
     private byte[] bytes;
 
-    public MyBitMap(int size) {
+    public MyBitMapOfByte(int size) {
         if (size <= 0) {
             return;
         }
@@ -33,11 +35,17 @@ public class MyBitMap {
     }
 
     public static void main(String[] args) {
-        MyBitMap myBitMap = new MyBitMap(32);
-        myBitMap.set(30);
-        myBitMap.set(13);
-        myBitMap.set(24);
-        System.out.println(myBitMap.contain(30));
+        MyBitMapOfByte myBitMapOfByte = new MyBitMapOfByte(32);
+        myBitMapOfByte.set(30);
+        myBitMapOfByte.set(13);
+        myBitMapOfByte.set(24);
+        System.out.println(myBitMapOfByte.contain(30));
+
+        //jdk bitSet
+        BitSet bitSet = new BitSet(100);
+        bitSet.set(999);
+        boolean b = bitSet.get(25);
+        System.out.println(b);
     }
 
 }
