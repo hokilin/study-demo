@@ -1,20 +1,19 @@
 package cn.hokilin.studydemo.test;
 
 
-import cn.hutool.core.date.DateUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 /**
  * @author linhuankai
  * @date 2020/11/24 15:27
  */
 public class TestDemo {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws JsonProcessingException {
 //        String encryptedPhone = DigestUtils.md5Hex("123456" + "123456" + "15222892752" + "123456");
 //        encryptedPhone = DigestUtils.md5Hex(encryptedPhone.toUpperCase()).toUpperCase();
 //        System.out.println(encryptedPhone);
@@ -25,8 +24,23 @@ public class TestDemo {
 //        Date date = DateUtil.parse("1995-03-02 02:02:02", "yyyy-MM-dd");
 //        System.out.println(date);
 
-        System.out.println(isLegalDateStr("2020-02-29"));
-        System.out.println(isLegalDateTimeStr("2020-02-28 00:00:01"));
+//        System.out.println(isLegalDateStr("2020-02-29"));
+//        System.out.println(isLegalDateTimeStr("2020-02-28 00:00:01"));
+
+//        String str = "{" +
+//                "    \"7001_001\": \"4\"," +
+//                "    \"7001_002\": \"0\"," +
+//                "    \"7001_003\": \"4\"," +
+//                "    \"7001_004\": \"1\"}";
+//        System.out.println(str);
+//        ObjectMapper mapper = new ObjectMapper();
+//        Map map = mapper.readValue(str, Map.class);
+//        Map map1 = JacksonUtils.string2Obj(str, Map.class);
+//        System.out.println(map);
+//        System.out.println(map1);
+
+        String name = "TP-sss";
+        System.out.println(name.startsWith("TP-"));
     }
 
     public static boolean isLegalDateStr(String dateStr) {
