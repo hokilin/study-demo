@@ -38,7 +38,7 @@ public class MyBitMapOfByte {
         MyBitMapOfByte myBitMapOfByte = new MyBitMapOfByte(32);
         myBitMapOfByte.set(30);
         myBitMapOfByte.set(13);
-        myBitMapOfByte.set(24);
+        myBitMapOfByte.set(30);
         System.out.println(myBitMapOfByte.contain(30));
 
         //jdk bitSet
