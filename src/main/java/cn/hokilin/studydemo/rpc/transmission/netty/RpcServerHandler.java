@@ -9,6 +9,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 /**
  * @author linhuankai
  * @date 2021/2/3 21:02
+ * https://www.cnkirito.moe/rpc-transport/
  */
 public class RpcServerHandler extends SimpleChannelInboundHandler<RpcRequest> {
     @Override

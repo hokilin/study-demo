@@ -11,6 +11,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 /**
  * @author linhuankai
  * @date 2021/2/3 21:05
+ * https://www.cnkirito.moe/rpc-transport/
  */
 public class RpcNettyConsumer {
     public static void main(String[] args) throws Exception{

@@ -11,6 +11,7 @@ import java.util.List;
 /**
  * @author linhuankai
  * @date 2021/2/3 21:04
+ * https://www.cnkirito.moe/rpc-transport/
  */
 public class RpcDecoder extends ByteToMessageDecoder {
     private Class<?> genericClass;
