@@ -1,4 +1,4 @@
-package cn.hokilin.studydemo.designmode.dynamicproxy;
+package cn.hokilin.studydemo.rpc.dynamicproxy;
 
 import org.springframework.cglib.proxy.Enhancer;
 import org.springframework.cglib.proxy.MethodInterceptor;

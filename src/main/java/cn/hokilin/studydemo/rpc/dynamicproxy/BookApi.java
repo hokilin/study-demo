@@ -1,4 +1,4 @@
-package cn.hokilin.studydemo.designmode.dynamicproxy;
+package cn.hokilin.studydemo.rpc.dynamicproxy;
 
 /**
  * @author linhuankai
